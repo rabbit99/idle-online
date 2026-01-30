@@ -156,7 +156,7 @@ export default function App() {
   return (
     <main className="page">
       <header className="hero">
-        <h1>TestGame - 方案 A</h1>
+        <h1>放置人生</h1>
         <p>前端：React + Vite｜後端：Express</p>
       </header>
 

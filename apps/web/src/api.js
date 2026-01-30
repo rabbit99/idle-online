@@ -17,3 +17,9 @@ export async function fetchJobs() {
   if (!response.ok) throw new Error("jobs failed");
   return response.json();
 }
+
+export async function fetchApiVersion() {
+  const response = await fetch(`${baseUrl}/api/version`);
+  if (!response.ok) throw new Error("version failed");
+  return response.json();
+}

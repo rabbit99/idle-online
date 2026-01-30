@@ -1,5 +1,11 @@
 import express from "express";
 import cors from "cors";
+import { readFileSync } from "node:fs";
+
+const packageJson = JSON.parse(
+  readFileSync(new URL("../package.json", import.meta.url), "utf-8"),
+);
+const apiVersion = packageJson.version || "0.0.0";
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -12,7 +18,7 @@ app.use(
 app.use(express.json());
 
 app.get("/health", (req, res) => {
-  res.json({ status: "ok" });
+  res.json({ status: "ok", version: apiVersion });
 });
 
 app.get("/", (req, res) => {
@@ -20,7 +26,15 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/hello", (req, res) => {
-  res.json({ message: "Hello from API", time: new Date().toISOString() });
+  res.json({
+    message: "Hello from API",
+    time: new Date().toISOString(),
+    version: apiVersion,
+  });
+});
+
+app.get("/api/version", (req, res) => {
+  res.json({ version: apiVersion });
 });
 
 app.get("/api/jobs", (req, res) => {

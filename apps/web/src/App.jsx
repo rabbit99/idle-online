@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
-import { fetchHello, fetchJobs, fetchHealth } from "./api.js";
+import { fetchApiVersion, fetchHello, fetchJobs, fetchHealth } from "./api.js";
 import { supabase } from "./supabase.js";
 
 export default function App() {
   const [health, setHealth] = useState("checking");
   const [hello, setHello] = useState("");
   const [jobs, setJobs] = useState([]);
+  const [apiVersion, setApiVersion] = useState("-");
   const [stamina, setStamina] = useState(20);
   const [gold, setGold] = useState(0);
   const [checkedIn, setCheckedIn] = useState(false);
@@ -22,6 +23,7 @@ export default function App() {
     fetchHealth().then((data) => setHealth(data.status)).catch(() => setHealth("error"));
     fetchHello().then((data) => setHello(data.message));
     fetchJobs().then(setJobs);
+    fetchApiVersion().then((data) => setApiVersion(data.version || "-")).catch(() => setApiVersion("error"));
   }, []);
 
   useEffect(() => {
@@ -157,7 +159,9 @@ export default function App() {
     <main className="page">
       <header className="hero">
         <h1>放置人生</h1>
-        <p>測試1.0</p>
+        <p>
+          前端版本：{__APP_VERSION__}｜後端版本：{apiVersion}
+        </p>
       </header>
 
       <section className="card">

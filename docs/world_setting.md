@@ -48,3 +48,4 @@
 | 後端 | Node.js（Express）或 Python（FastAPI） | 處理即時打卡與數據存取。 |
 | 資料庫 | PostgreSQL 或 MongoDB | 儲存玩家龐大的資產與工作紀錄。 |
 | 呈現方式 | 文字放置類（PDI-like） | 成本低、擴展性強，用精美的 UI 取代 3D 建模。 |
+.

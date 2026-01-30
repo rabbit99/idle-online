@@ -157,7 +157,7 @@ export default function App() {
     <main className="page">
       <header className="hero">
         <h1>放置人生</h1>
-        <p>前端：React + Vite｜後端：Express</p>
+        <p>測試1.0</p>
       </header>
 
       <section className="card">

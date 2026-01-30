@@ -4,11 +4,19 @@ import cors from "cors";
 const app = express();
 const port = process.env.PORT || 4000;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN || "*",
+  }),
+);
 app.use(express.json());
 
 app.get("/health", (req, res) => {
   res.json({ status: "ok" });
+});
+
+app.get("/", (req, res) => {
+  res.json({ name: "idle-online-api", status: "ok" });
 });
 
 app.get("/api/hello", (req, res) => {

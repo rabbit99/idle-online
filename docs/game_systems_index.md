@@ -27,3 +27,5 @@
 
 - [世界觀設定](world_setting.md)
 - [支線任務設定](side_quests.md)
+- [遊戲開發方案](development_solutions.md)
+- [Supabase 設定指引](supabase_setup.md)

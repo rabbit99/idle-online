@@ -4,6 +4,7 @@
 
 - [遊戲系統架構索引](game_systems_index.md)
 - [支線任務設定](side_quests.md)
+- [遊戲開發方案](development_solutions.md)
 
 ## 🎮 遊戲核心機制設計
 
@@ -39,6 +40,7 @@
 ## 🛠️ 技術實作建議
 
 對於「還沒想好怎麼呈現」的部分，建議採用 Web-based（網頁版）作為起點。
+完整實作方案請見 [遊戲開發方案](development_solutions.md)。
 
 | 項目 | 建議方案 | 優點 |
 | --- | --- | --- |

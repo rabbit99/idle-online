@@ -1,0 +1,20 @@
+{
+  "name": "testgame",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev:a",
+    "dev:a": "concurrently -n web,api -c cyan,magenta \"npm --workspace @app/web run dev\" \"npm --workspace @app/api run dev\"",
+    "build:a": "npm --workspace @app/web build",
+    "start:a": "npm --workspace @app/api start",
+    "dev:b": "node scripts/solution-placeholder.js B",
+    "dev:c": "node scripts/solution-placeholder.js C",
+    "dev:d": "node scripts/solution-placeholder.js D"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

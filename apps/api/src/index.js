@@ -16,6 +16,37 @@ app.get("/api/hello", (req, res) => {
 });
 
 app.get("/api/jobs", (req, res) => {
+  const randomJobs = [
+    {
+      id: "job-intern",
+      title: "實習生",
+      durationMinutes: 30,
+      rewardGold: 5,
+      staminaCost: 2,
+    },
+    {
+      id: "job-designer",
+      title: "UI 設計師",
+      durationMinutes: 90,
+      rewardGold: 18,
+      staminaCost: 7,
+    },
+    {
+      id: "job-marketer",
+      title: "行銷企劃",
+      durationMinutes: 120,
+      rewardGold: 22,
+      staminaCost: 8,
+    },
+    {
+      id: "job-analyst",
+      title: "數據分析師",
+      durationMinutes: 180,
+      rewardGold: 30,
+      staminaCost: 10,
+    },
+  ];
+  const randomJob = randomJobs[Math.floor(Math.random() * randomJobs.length)];
   res.json([
     {
       id: "job-copywriter",
@@ -30,6 +61,10 @@ app.get("/api/jobs", (req, res) => {
       durationMinutes: 240,
       rewardGold: 80,
       staminaCost: 20,
+    },
+    {
+      ...randomJob,
+      id: `job-random-${randomJob.id}`,
     },
   ]);
 });

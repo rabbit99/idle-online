@@ -105,6 +105,9 @@ grant execute on function public.check_in() to authenticated;
 - 在 Auth Providers 啟用 Google 與 GitHub
 - 設定 OAuth 的 Client ID/Secret
 - 將 http://localhost:5173 加入 Redirect URLs
+- 並加入 https://idle-online-web.vercel.app 到 Redirect URLs
+
+部署環境請在前端設定 VITE_SITE_URL=部署網址。
 
 ## 5. 環境變數
 已放在 apps/web/.env：

@@ -135,10 +135,11 @@ export default function App() {
   const handleOAuth = async (provider) => {
     setAuthLoading(true);
     setAuthError("");
+    const redirectTo = import.meta.env.VITE_SITE_URL || window.location.origin;
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: window.location.origin
+        redirectTo
       }
     });
     if (error) {

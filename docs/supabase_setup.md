@@ -15,6 +15,23 @@ create table if not exists profiles (
 
 alter table profiles
   add column if not exists last_check_in date;
+
+create table if not exists game_config (
+  key text primary key,
+  value jsonb not null
+);
+
+insert into game_config (key, value)
+values
+  (
+    'initial',
+    '{"stamina":20,"gold":0,"checkedIn":false}'::jsonb
+  ),
+  (
+    'checkIn',
+    '{"staminaReward":20}'::jsonb
+  )
+on conflict (key) do nothing;
 ```
 
 ## 2. 開啟 RLS 並設定政策
@@ -44,10 +61,20 @@ language plpgsql
 security definer
 set search_path = public
 as $$
+declare
+  initial_config jsonb;
+  initial_stamina integer;
+  initial_gold integer;
+  initial_checked_in boolean;
 begin
+  select value into initial_config from game_config where key = 'initial';
+  initial_stamina := coalesce((initial_config->>'stamina')::int, 20);
+  initial_gold := coalesce((initial_config->>'gold')::int, 0);
+  initial_checked_in := coalesce((initial_config->>'checkedIn')::boolean, false);
+
   if not exists (select 1 from profiles where id = auth.uid()) then
     insert into profiles (id, stamina, gold, checked_in, last_check_in)
-    values (auth.uid(), 20, 0, false, null);
+    values (auth.uid(), initial_stamina, initial_gold, initial_checked_in, null);
   end if;
 
   update profiles
@@ -69,16 +96,21 @@ set search_path = public
 as $$
 declare
   current_record profiles%rowtype;
+  check_in_config jsonb;
+  stamina_reward integer;
 begin
+  select value into check_in_config from game_config where key = 'checkIn';
+  stamina_reward := coalesce((check_in_config->>'staminaReward')::int, 20);
+
   select * into current_record from profiles where id = auth.uid();
 
   if not found then
     insert into profiles (id, stamina, gold, checked_in, last_check_in)
-    values (auth.uid(), 20, 0, true, current_date)
+    values (auth.uid(), stamina_reward, 0, true, current_date)
     returning * into current_record;
   elsif current_record.last_check_in is distinct from current_date then
     update profiles
-    set stamina = profiles.stamina + 20,
+    set stamina = profiles.stamina + stamina_reward,
         checked_in = true,
         last_check_in = current_date,
         updated_at = now()

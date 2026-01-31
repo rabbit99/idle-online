@@ -1,0 +1,56 @@
+{
+  "initial": {
+    "stamina": 20,
+    "gold": 0,
+    "checkedIn": false
+  },
+  "checkIn": {
+    "staminaReward": 20
+  },
+  "jobs": [
+    {
+      "id": "job-copywriter",
+      "title": "文案員",
+      "durationMinutes": 60,
+      "rewardGold": 10,
+      "staminaCost": 5
+    },
+    {
+      "id": "job-senior-engineer",
+      "title": "資深工程師",
+      "durationMinutes": 240,
+      "rewardGold": 80,
+      "staminaCost": 20
+    }
+  ],
+  "randomJobs": [
+    {
+      "id": "job-intern",
+      "title": "實習生",
+      "durationMinutes": 30,
+      "rewardGold": 5,
+      "staminaCost": 2
+    },
+    {
+      "id": "job-designer",
+      "title": "UI 設計師",
+      "durationMinutes": 90,
+      "rewardGold": 18,
+      "staminaCost": 7
+    },
+    {
+      "id": "job-marketer",
+      "title": "行銷企劃",
+      "durationMinutes": 120,
+      "rewardGold": 22,
+      "staminaCost": 8
+    },
+    {
+      "id": "job-analyst",
+      "title": "數據分析師",
+      "durationMinutes": 180,
+      "rewardGold": 30,
+      "staminaCost": 10
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { fetchApiVersion, fetchHello, fetchJobs, fetchHealth } from "./api.js";
+import { fetchApiVersion, fetchGameConfig, fetchHello, fetchJobs, fetchHealth } from "./api.js";
 import { supabase } from "./supabase.js";
 
 export default function App() {
@@ -7,6 +7,7 @@ export default function App() {
   const [hello, setHello] = useState("");
   const [jobs, setJobs] = useState([]);
   const [apiVersion, setApiVersion] = useState("-");
+  const [gameConfig, setGameConfig] = useState(null);
   const [stamina, setStamina] = useState(20);
   const [gold, setGold] = useState(0);
   const [checkedIn, setCheckedIn] = useState(false);
@@ -24,6 +25,7 @@ export default function App() {
     fetchHello().then((data) => setHello(data.message));
     fetchJobs().then(setJobs);
     fetchApiVersion().then((data) => setApiVersion(data.version || "-")).catch(() => setApiVersion("error"));
+    fetchGameConfig().then(setGameConfig).catch(() => setGameConfig(null));
   }, []);
 
   useEffect(() => {
@@ -87,6 +89,14 @@ export default function App() {
 
     saveProfile();
   }, [profileKey, stamina, gold, checkedIn, profileLoading, isHydrated]);
+
+  useEffect(() => {
+    if (session) return;
+    if (!gameConfig?.initial) return;
+    setStamina(gameConfig.initial.stamina ?? 20);
+    setGold(gameConfig.initial.gold ?? 0);
+    setCheckedIn(Boolean(gameConfig.initial.checkedIn));
+  }, [gameConfig, session]);
 
   const handleCheckIn = () => {
     if (checkedIn) return;

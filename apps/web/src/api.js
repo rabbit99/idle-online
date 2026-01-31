@@ -23,3 +23,9 @@ export async function fetchApiVersion() {
   if (!response.ok) throw new Error("version failed");
   return response.json();
 }
+
+export async function fetchGameConfig() {
+  const response = await fetch(`${baseUrl}/api/config`);
+  if (!response.ok) throw new Error("config failed");
+  return response.json();
+}

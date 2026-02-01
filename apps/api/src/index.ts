@@ -16,14 +16,14 @@ type GameConfig = {
 };
 
 const packageJson = JSON.parse(
-  readFileSync(new URL("../package.json", import.meta.url), "utf-8")
+  readFileSync(new URL("../package.json", import.meta.url), "utf-8"),
 ) as { version?: string };
 const apiVersion = packageJson.version || "0.0.0";
 const gameConfig = JSON.parse(
   readFileSync(
     new URL("../../../packages/shared/config.json", import.meta.url),
-    "utf-8"
-  )
+    "utf-8",
+  ),
 ) as GameConfig;
 
 const app = express();
@@ -31,8 +31,8 @@ const port = Number(process.env.PORT) || 4000;
 
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN || "*"
-  })
+    origin: process.env.CORS_ORIGIN || "*",
+  }),
 );
 app.use(express.json());
 
@@ -48,7 +48,7 @@ app.get("/api/hello", (_req, res) => {
   res.json({
     message: "Hello from API",
     time: new Date().toISOString(),
-    version: apiVersion
+    version: apiVersion,
   });
 });
 
@@ -71,10 +71,10 @@ app.get("/api/jobs", (_req, res) => {
       ? [
           {
             ...randomJob,
-            id: `job-random-${randomJob.id}`
-          }
+            id: `job-random-${randomJob.id}`,
+          },
         ]
-      : [])
+      : []),
   ]);
 });
 

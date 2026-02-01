@@ -1,7 +1,11 @@
 const baseUrl = import.meta.env.VITE_API_URL || "";
 
 export type HealthResponse = { status: string };
-export type HelloResponse = { message: string; time?: string; version?: string };
+export type HelloResponse = {
+  message: string;
+  time?: string;
+  version?: string;
+};
 export type Job = {
   id: string;
   title: string;
